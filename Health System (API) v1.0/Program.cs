@@ -13,49 +13,41 @@ namespace Conditionals__HUD_v1._2_
         static string status;
         static int weapon;
         static string WeaponName;
+        static int live;
         static void Main(string[] args)
         {
             health = 100;
             status = "Perfect Health";
             weapon = 0;
             WeaponName = "pistol";
+            live = 3;
 
+            
             ShowHUD();
-            Console.WriteLine("");
-            Console.WriteLine("start");
-            Console.WriteLine("");
-            Console.ReadKey(true);
-
-
-            ChangeWeapon(0);
-            Heal(0);
-            ShowHUD();
-            Console.WriteLine("");
-            Console.WriteLine("You find a shotgun then you lick a nuke");
-            Console.ReadKey(true);
-
-            Console.WriteLine("");
-            TakeDamge(99);
-            ChangeWeapon(1);
-            ShowHUD();
-            Console.WriteLine("");
-            Console.WriteLine("The shotgun gets obliterated.");
-            Console.WriteLine("You find a health pack and a zombie then shows up at the scene.");
-            Console.WriteLine("You reach into your pocket and get your emergency weapon.");
-            Console.ReadKey(true);
-
-            Console.WriteLine("");
-            ChangeWeapon(7);
-            Heal(40);
-            ShowHUD();
-            Console.WriteLine("");
-            Console.WriteLine("big friendly giant: hello there.");
             Console.ReadKey(true);
         }
 
         static void TakeDamge(int damge)
         {
             health = health - damge;
+
+            //hp range
+            if (health <= 0)
+            {
+                health = 0;
+            }
+            if (health >= 100)
+            {
+                health = 100;
+            }
+
+            //live to hp
+            if (health == 0)
+            {
+                live = live - 1;
+                health = health + 100;
+            }
+
         }
         static void Heal(int hp)
         {
@@ -86,6 +78,7 @@ namespace Conditionals__HUD_v1._2_
             {
                 status = "Imminent Danger";
             }
+
 
         }
         static void ChangeWeapon(int gun)
@@ -128,17 +121,28 @@ namespace Conditionals__HUD_v1._2_
 
             }
         }
-        static void Code()
+        static void lives(int liv)
         {
+            live = live + liv;
 
+            //live
+            if (live <= 0)
+            {
+                live = 0;
+            }
+            if (live >= 99)
+            {
+                live = 99;
+            }
 
+            
         }
 
 
 
         static void ShowHUD()
         {
-
+            Console.WriteLine("lives = " + live);
             Console.WriteLine("Hp = " + health);
             Console.WriteLine("Health status = " + status);
             Console.WriteLine("weapon = " + WeaponName);
