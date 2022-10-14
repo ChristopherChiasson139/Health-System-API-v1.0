@@ -14,6 +14,7 @@ namespace Conditionals__HUD_v1._2_
         static int weapon;
         static string WeaponName;
         static int live;
+        static int shield;
         static void Main(string[] args)
         {
             health = 100;
@@ -21,12 +22,20 @@ namespace Conditionals__HUD_v1._2_
             weapon = 0;
             WeaponName = "pistol";
             live = 3;
+            shield = 100;
 
-            
+            TakeDamge(50);
+            ShowHUD();
+            Console.ReadKey(true);
+            Heal(10000);
+            ShowHUD();
+            Console.ReadKey(true);
+
             ShowHUD();
             Console.ReadKey(true);
         }
 
+      
         static void TakeDamge(int damge)
         {
             health = health - damge;
@@ -58,9 +67,10 @@ namespace Conditionals__HUD_v1._2_
             {
                 health = 0;
             }
-            if (health >= 100)
+            if (health > 100)
             {
                 health = 100;
+                lives(1);
             }
             if ((health >= 75) && (health <= 90))
             {
@@ -138,11 +148,15 @@ namespace Conditionals__HUD_v1._2_
             
         }
 
+        static void Shield()
+        {
 
+        }
 
         static void ShowHUD()
         {
             Console.WriteLine("lives = " + live);
+            Console.WriteLine("Shield = " + shield);
             Console.WriteLine("Hp = " + health);
             Console.WriteLine("Health status = " + status);
             Console.WriteLine("weapon = " + WeaponName);
