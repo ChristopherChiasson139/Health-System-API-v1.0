@@ -24,35 +24,72 @@ namespace Conditionals__HUD_v1._2_
             live = 3;
             shield = 100;
 
+            //ShowHUD();
+            //TakeDamge();
+            //RegenerateShield();
+            //Heal();
+            //lives();
+            //ChangeWeapon();
             
             ShowHUD();
+            Console.WriteLine("HUD");
             Console.ReadKey(true);
 
-            TakeDamge(99999);
+            lives(1);
+            TakeDamge(75);
             ShowHUD();
+            Console.WriteLine("Live 1 / TakeDamge 75");
             Console.ReadKey(true);
 
-            TakeDamge(99999);
+            TakeDamge(75);
             ShowHUD();
+            Console.WriteLine("TakeDamge 75");
             Console.ReadKey(true);
 
-            TakeDamge(99999);
+            ChangeWeapon(1);
+            TakeDamge(75);
             ShowHUD();
+            Console.WriteLine("ChangeWeapon 1/ TakeDamge 75");
             Console.ReadKey(true);
 
-            TakeDamge(99999);
+            ChangeWeapon(3);
+            TakeDamge(75);
             ShowHUD();
+            Console.WriteLine("ChangeWeapon 3/ TakeDamge 75");
             Console.ReadKey(true);
 
-            TakeDamge(99999);
+            ChangeWeapon(2);
+            Heal(25);
+            RegenerateShield(34);
             ShowHUD();
+            Console.WriteLine("ChangeWeapon 2/ RegenerateShield 34/ Heal 25");
             Console.ReadKey(true);
 
-            TakeDamge(99999);
+            Heal(500);
+            RegenerateShield(500);
             ShowHUD();
+            Console.WriteLine("RegenerateShield 500/ Heal 500");
             Console.ReadKey(true);
 
+            TakeDamge(500);
+            ShowHUD();
+            Console.WriteLine("TakeDamge 500");
+            Console.ReadKey(true);
 
+            TakeDamge(500);
+            ShowHUD();
+            Console.WriteLine("TakeDamge 500");
+            Console.ReadKey(true);
+
+            TakeDamge(500);
+            ShowHUD();
+            Console.WriteLine("TakeDamge 500");
+            Console.ReadKey(true);
+
+            TakeDamge(500);
+            ShowHUD();
+            Console.WriteLine("TakeDamge 500");
+            Console.ReadKey(true);
 
         }
 
@@ -61,6 +98,7 @@ namespace Conditionals__HUD_v1._2_
         {
             shield = shield - damge;
 
+            
             //shield
             if (shield < 0)
             {
@@ -97,6 +135,8 @@ namespace Conditionals__HUD_v1._2_
             //die
             if (live == 0)
             {
+                Console.Beep();
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("");
                 Console.WriteLine("Game over");
                 Console.ReadKey(true);
@@ -104,19 +144,11 @@ namespace Conditionals__HUD_v1._2_
             }
 
         }
-        static void Heal(int hp)
+        static void HealthStatusRange()
         {
-            health = health + hp;
-
-            //hp
-            if (health <= 0)
+            if ((health >= 91) && (health <= 100))
             {
-                health = 0;
-            }
-            if (health > 100)
-            {
-                health = 100;
-                lives(1);
+                status = "Perfect Health";
             }
             if ((health >= 75) && (health <= 90))
             {
@@ -134,12 +166,26 @@ namespace Conditionals__HUD_v1._2_
             {
                 status = "Imminent Danger";
             }
+        }
+        static void Heal(int hp)
+        {
+            health = health + hp;
 
+            //hp
+            if (health <= 0)
+            {
+                health = 0;
+            }
+            if (health > 100)
+            {
+                health = 100;
+                lives(1);
+            }
 
         }
         static void ChangeWeapon(int gun)
         {
-            weapon = weapon + gun;
+            weapon = weapon = gun;
 
             //gun
             if (weapon <= 0)
@@ -211,12 +257,21 @@ namespace Conditionals__HUD_v1._2_
 
         static void ShowHUD()
         {
+            HealthStatusRange();
+            Console.Beep();
             Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("lives = " + live);
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Shield = " + shield);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Hp = " + health);
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Health status = " + status);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("weapon = " + WeaponName);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("");
         }
         
 
