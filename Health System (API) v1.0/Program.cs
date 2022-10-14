@@ -24,21 +24,49 @@ namespace Conditionals__HUD_v1._2_
             live = 3;
             shield = 100;
 
-            TakeDamge(50);
-            ShowHUD();
-            Console.ReadKey(true);
-            Heal(10000);
+            
             ShowHUD();
             Console.ReadKey(true);
 
+            TakeDamge(99999);
             ShowHUD();
             Console.ReadKey(true);
+
+            TakeDamge(99999);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            TakeDamge(99999);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            TakeDamge(99999);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            TakeDamge(99999);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            TakeDamge(99999);
+            ShowHUD();
+            Console.ReadKey(true);
+
+
+
         }
 
       
         static void TakeDamge(int damge)
         {
-            health = health - damge;
+            shield = shield - damge;
+
+            //shield
+            if (shield < 0)
+            {
+                health = health + shield;
+                shield = 0;
+            }
 
             //hp range
             if (health <= 0)
@@ -55,6 +83,24 @@ namespace Conditionals__HUD_v1._2_
             {
                 live = live - 1;
                 health = health + 100;
+            }
+            //live range
+            if (live <= 0)
+            {
+                live = 0;
+            }
+            if (live >= 99)
+            {
+                live = 99;
+            }
+
+            //die
+            if (live == 0)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Game over");
+                Console.ReadKey(true);
+                Environment.Exit(0);
             }
 
         }
@@ -131,9 +177,9 @@ namespace Conditionals__HUD_v1._2_
 
             }
         }
-        static void lives(int liv)
+        static void lives(int lup)
         {
-            live = live + liv;
+            live = live + lup;
 
             //live
             if (live <= 0)
@@ -148,19 +194,31 @@ namespace Conditionals__HUD_v1._2_
             
         }
 
-        static void Shield()
+        static void RegenerateShield(int hp)
         {
+            shield = shield + hp;
 
+            //hp range
+            if (shield <= 0)
+            {
+                shield = 0;
+            }
+            if (shield >= 100)
+            {
+                shield = 100;
+            }
         }
 
         static void ShowHUD()
         {
+            Console.WriteLine("");
             Console.WriteLine("lives = " + live);
             Console.WriteLine("Shield = " + shield);
             Console.WriteLine("Hp = " + health);
             Console.WriteLine("Health status = " + status);
             Console.WriteLine("weapon = " + WeaponName);
         }
+        
 
     }
 }
