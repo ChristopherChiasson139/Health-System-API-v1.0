@@ -15,6 +15,7 @@ namespace Conditionals__HUD_v1._2_
         static string WeaponName;
         static int live;
         static int shield;
+        
         static void Main(string[] args)
         {
             health = 100;
@@ -23,6 +24,7 @@ namespace Conditionals__HUD_v1._2_
             WeaponName = "pistol";
             live = 3;
             shield = 100;
+            
 
             //ShowHUD();
             //TakeDamge();
@@ -32,63 +34,73 @@ namespace Conditionals__HUD_v1._2_
             //ChangeWeapon();
             
             ShowHUD();
-            Console.WriteLine("HUD");
             Console.ReadKey(true);
+
+            Heal(-50);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            RegenerateShield(-50);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            lives(-1);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            ChangeWeapon(-2);
+            ShowHUD();
+            Console.ReadKey(true);
+
+            TakeDamge(-75);
+            ShowHUD();
+            Console.ReadKey(true);
+
 
             lives(1);
             TakeDamge(75);
-            ShowHUD();
-            Console.WriteLine("Live 1 / TakeDamge 75");
+            ShowHUD();  
             Console.ReadKey(true);
 
             TakeDamge(75);
             ShowHUD();
-            Console.WriteLine("TakeDamge 75");
             Console.ReadKey(true);
 
             ChangeWeapon(1);
             TakeDamge(75);
             ShowHUD();
-            Console.WriteLine("ChangeWeapon 1/ TakeDamge 75");
             Console.ReadKey(true);
 
             ChangeWeapon(3);
             TakeDamge(75);
             ShowHUD();
-            Console.WriteLine("ChangeWeapon 3/ TakeDamge 75");
             Console.ReadKey(true);
 
             ChangeWeapon(2);
             Heal(25);
             RegenerateShield(34);
             ShowHUD();
-            Console.WriteLine("ChangeWeapon 2/ RegenerateShield 34/ Heal 25");
             Console.ReadKey(true);
 
             Heal(500);
             RegenerateShield(500);
             ShowHUD();
-            Console.WriteLine("RegenerateShield 500/ Heal 500");
             Console.ReadKey(true);
 
             TakeDamge(500);
             ShowHUD();
-            Console.WriteLine("TakeDamge 500");
             Console.ReadKey(true);
 
             TakeDamge(500);
             ShowHUD();
-            Console.WriteLine("TakeDamge 500");
             Console.ReadKey(true);
 
             TakeDamge(500);
             ShowHUD();
-            Console.WriteLine("TakeDamge 500");
             Console.ReadKey(true);
 
             TakeDamge(500);
             ShowHUD();
-            Console.WriteLine("TakeDamge 500");
             Console.ReadKey(true);
 
         }
@@ -96,52 +108,69 @@ namespace Conditionals__HUD_v1._2_
       
         static void TakeDamge(int damge)
         {
-            shield = shield - damge;
+            
+
+            //DEBUG,This is hell!!!
+            Console.WriteLine("TakeDamge " + damge);
+            if (damge <= 0)
+            {
+
+            }
+            if (damge >= 0)
+            {
+                shield = shield - damge;
+
+                //shield
+                if (shield < 0)
+                {
+                    health = health + shield;
+                    shield = 0;
+                }
+                if (shield <= 0)
+                {
+                    shield = 0;
+                }
+
+
+                //hp range
+                if (health <= 0)
+                {
+                    health = 0;
+                }
+                if (health >= 100)
+                {
+                    health = 100;
+                }
+
+                //live to hp
+                if (health == 0)
+                {
+                    live = live - 1;
+                    health = health + 100;
+                }
+                //live range
+                if (live <= 0)
+                {
+                    live = 0;
+                }
+                if (live >= 99)
+                {
+                    live = 99;
+                }
+
+                //die
+                if (live == 0)
+                {
+                    Console.Beep();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("");
+                    Console.WriteLine("Game over");
+                    Console.ReadKey(true);
+                    Environment.Exit(0);
+                }
+            }
 
             
-            //shield
-            if (shield < 0)
-            {
-                health = health + shield;
-                shield = 0;
-            }
-
-            //hp range
-            if (health <= 0)
-            {
-                health = 0;
-            }
-            if (health >= 100)
-            {
-                health = 100;
-            }
-
-            //live to hp
-            if (health == 0)
-            {
-                live = live - 1;
-                health = health + 100;
-            }
-            //live range
-            if (live <= 0)
-            {
-                live = 0;
-            }
-            if (live >= 99)
-            {
-                live = 99;
-            }
-
-            //die
-            if (live == 0)
-            {
-                Console.Beep();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("");
-                Console.WriteLine("Game over");
-                Console.ReadKey(true);
-                Environment.Exit(0);
-            }
 
         }
         static void HealthStatusRange()
@@ -169,23 +198,38 @@ namespace Conditionals__HUD_v1._2_
         }
         static void Heal(int hp)
         {
-            health = health + hp;
+            Console.WriteLine("Heal " + hp);
 
-            //hp
-            if (health <= 0)
+            if (hp <= 0)
             {
-                health = 0;
+                
             }
-            if (health > 100)
+            
+            if (hp >= 0)
             {
-                health = 100;
-                lives(1);
+                health = health + hp;
+
+                //hp
+                if (health <= 0)
+                {
+                    health = 0;
+                }
+                if (health > 100)
+                {
+                    health = 100;
+                    lives(1);
+                }
             }
+            
+
+            
 
         }
         static void ChangeWeapon(int gun)
         {
             weapon = weapon = gun;
+
+            Console.WriteLine("ChangeWeapon " + gun);
 
             //gun
             if (weapon <= 0)
@@ -225,34 +269,51 @@ namespace Conditionals__HUD_v1._2_
         }
         static void lives(int lup)
         {
-            live = live + lup;
+            Console.WriteLine("lives " + lup);
 
-            //live
-            if (live <= 0)
+            if (lup <= 0)
             {
-                live = 0;
+
             }
-            if (live >= 99)
+            if (lup >= 0)
             {
-                live = 99;
+                live = live + lup;
+
+                //live
+                if (live <= 0)
+                {
+                    live = 0;
+                }
+                if (live >= 99)
+                {
+                    live = 99;
+                }
             }
 
-            
         }
 
         static void RegenerateShield(int hp)
         {
-            shield = shield + hp;
+            Console.WriteLine("RegenerateShield " + hp);
+            if (hp <= 0)
+            {
 
-            //hp range
-            if (shield <= 0)
-            {
-                shield = 0;
             }
-            if (shield >= 100)
+            if (hp >= 0)
             {
-                shield = 100;
+                shield = shield + hp;
+
+                //hp range
+                if (shield <= 0)
+                {
+                    shield = 0;
+                }
+                if (shield >= 100)
+                {
+                    shield = 100;
+                }
             }
+            
         }
 
         static void ShowHUD()
